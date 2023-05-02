@@ -13,7 +13,7 @@ set -ex
 export REGISTRY=${REGISTRY:-icr.io/builddb}
 
 # Build the image
-docker build ${NOCACHE} -t ${REGISTRY} .
+docker build ${NOCACHE} -t ${REGISTRY}/codeengine-repo-d6da .
 
 # And push it
-docker push ${REGISTRY}
+docker push ${REGISTRY}/codeengine-repo-d6da
