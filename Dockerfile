@@ -1,4 +1,4 @@
-FROM icr.io/codeengine/node:12-alpine
+FROM icr.io/codeengine/golang:alpine
 RUN npm install
 COPY index.js .
 EXPOSE 8080
