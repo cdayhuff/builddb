@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHATADMIN</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container">
+    <h1 class="my-4">CHATADMIN</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Instruction Line 1</th>
+                <th>Use Case Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (let i=0; i < chatadmin1.length; i++) { %>
+                <tr>
+                    <td>
+                        <%= chatadmin1[i].INSTRUCTIONLINE1 %>
+                    </td>
+                    <td>
+                        <%= chatadmin1[i].USECASENAME %>
+                    </td>
+                    <td>
+                        <a href="javascript:void(0);" onclick="switchToEditMode('<%= chatadmin1[i].ID %>', '<%= chatadmin1[i].INSTRUCTIONLINE1 %>', '<%= chatadmin1[i].USECASENAME %>')" class="btn btn-primary">Edit</a>
+                        <!-- ... -->
+                    </td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+
+    <h2 class="my-4">Create/Update Instruction</h2>
+    <form id="instructionForm" action="/chatadmin1" method="POST" class="mb-4">
+        <div class="form-group">
+            <label for="instruction">Instruction Line 1:</label>
+            <input type="text" class="form-control" name="instruction" required>
+        </div>
+        <div class="form-group">
+            <label for="usecase">Use Case Name:</label>
+            <input type="text" class="form-control" name="usecase" required>
+        </div>
+        <input type="hidden" name="id">
+        <button id="updateButton" type="submit" class="btn btn-warning d-none">Update</button>
+        <button id="createButton" type="submit" class="btn btn-success">Create</button>
+    </form>
+</div>
+
+
+<script>
+    const form = document.getElementById("instructionForm");
+    form.addEventListener("submit", handleSubmit);
+
+    async function handleSubmit(event) {
+        event.preventDefault();
+        const createButton = document.getElementById("createButton");
+        const instructionLine1 = document.querySelector("input[name='instruction']").value;
+        const useCaseName = document.querySelector("input[name='usecase']").value;
+
+        if (createButton.classList.contains("d-none")) {
+            const id = document.querySelector("input[name='id']").value;
+            console.log({ id, instructionLine1, useCaseName });
+            await updateInstruction(id, instructionLine1, useCaseName);
+            //reload
+            window.location.reload();
+
+        } else {
+            await createInstruction(instructionLine1, useCaseName);
+            //reload
+            window.location.reload();
+        }
+    }
+
+    async function createInstruction(instructionLine1, useCaseName) {
+        try {
+            const response = await fetch("/chatadmin", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ instruction: instructionLine1, usecase: useCaseName }),
+            });
+            const data = await response.json();
+            console.log("Instruction created:", data);
+        } catch (error) {
+            console.error("Error creating instruction:", error);
+            alert(error?.message || "Error creating instruction");
+        }
+    }
+
+    async function updateInstruction(id, instructionLine1, useCaseName) {
+        try {
+            const response = await fetch("/chatadmin", {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id: id, instruction: instructionLine1, usecase: useCaseName }),
+            });
+            const data = await response.json();
+            console.log("Instruction updated:", data);
+        } catch (error) {
+            console.error("Error updating instruction:", error);
+            alert(error?.message || "Error updating instruction");
+        }
+    }
+
+    function switchToEditMode(id, instructionLine1, useCaseName) {
+        const createButton = document.getElementById("createButton");
+        const updateButton = document.getElementById("updateButton");
+
+        createButton.classList.add("d-none");
+        updateButton.classList.remove("d-none");
+
+        document.querySelector("input[name='instruction']").value = instructionLine1;
+        document.querySelector("input[name='usecase']").value = useCaseName;
+        document.querySelector("input[name='id']").value = id;
+    }
+
+    function switchToCreateMode() {
+        const createButton = document.getElementById("createButton");
+        const updateButton = document.getElementById("updateButton");
+
+        createButton.classList.remove("d-none");
+        updateButton.classList.add("d-none");
+
+        document.querySelector("input[name='instruction']").value = "";
+        document.querySelector("input[name='usecase']").value = "";
+    }
+
+</script>
