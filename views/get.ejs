@@ -86,8 +86,6 @@
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ usecase: usecase }),
                 });
-                const data = await response.json();
-                console.log("Instruction deleted:", data);
                 window.location.reload();
             } catch (error) {
                 console.error("Error deleting instruction:", error);

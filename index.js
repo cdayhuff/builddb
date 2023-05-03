@@ -1,7 +1,6 @@
 const express = require('express');
 const connectDb = require('./db');
 const cors = require('cors');
-
 const app = express();
 
 
@@ -91,5 +90,5 @@ app.delete('/chatadmin', async (req, res) => {
 
 
 app.listen(8080, () => {
-    console.log('Server listening on port 8080.');
+    console.log('Server listening on port 3000.');
 });
