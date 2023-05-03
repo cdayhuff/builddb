@@ -1,6 +1,7 @@
 const express = require('express');
 const connectDb = require('./db');
 const cors = require('cors');
+
 const app = express();
 
 
@@ -69,26 +70,28 @@ app.put('/chatadmin', async (req, res) => {
     }
 });
 
-
 app.delete('/chatadmin', async (req, res) => {
     try {
         const conn = await connectDb();
         const payload = req.body;
-        if(!payload.usecase) {
-            throw new Error('Use case name is required.');
+        console.log(payload);
+        if(!payload.instruction || !payload.usecase || !payload.id ) {
+            throw new Error('Instruction and use case name are required.');
         }
         const payloadValues = {
+            INSTRUCTIONLINE1: payload.instruction?.trim() || "",
             USECASENAME: payload.usecase?.trim() || "",
+            ID: payload.id
         }
-        await conn.query(`DELETE FROM CHATADMIN1 WHERE USECASENAME = '${payloadValues.USECASENAME}'`);
-        res.status(201).json({ message: 'Chat admin data deleted.' });
+        await conn.query(`DELETE FROM CHATADMIN1 WHERE USECASENAME = '${payloadValues.USECASENAME}' WHERE ID = ${payloadValues.ID}`);
+        res.status(201).json({ message: 'Chat admin data DELETED.' });
     } catch (err) {
         console.error(err);
-        res.status(500).json({ message: 'An error occurred while retrieving deleting data.' });
+        res.status(500).json({ message: 'An error occurred while retrieving updating data.' });
     }
 });
 
 
 app.listen(8080, () => {
-    console.log('Server listening on port 3000.');
+    console.log('Server listening on port 8080.');
 });
