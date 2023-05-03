@@ -1,5 +1,5 @@
-#FROM icr.io/codeengine/node:12-alpine
 FROM node:16
+#FROM icr.io/codeengine/node:12-alpine
 
 # Create app directory
 WORKDIR /usr/src/app
