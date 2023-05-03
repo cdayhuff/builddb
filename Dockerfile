@@ -1,5 +1,4 @@
 FROM node:16
-#FROM icr.io/codeengine/node:12-alpine
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -17,4 +16,4 @@ RUN npm install
 COPY . .
 
 EXPOSE 8080
-CMD [ "node", "index.js" ]
+CMD [ "node", "/usr/src/app/index.js" ]
