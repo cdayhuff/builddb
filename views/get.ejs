@@ -76,20 +76,19 @@
             window.location.reload();
         }
     }
-    async function deleteInstruction(id, instructionLine1, useCaseName) {
-    try {
-            const response = await fetch("/chatadmin", {
-                method: "DELETE",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ id: id, instruction: instructionLine1, usecase: useCaseName }),
-            });
-            const data = await response.json();
-            console.log("Instruction deleted:", data);
-        } catch (error) {
-            console.error("Error deleting instruction:", error);
-            alert(error?.message || "Error deleting instruction");
+    async function deleteInstruction(usecase) {
+            try {
+                const response = await fetch("/chatadmin", {
+                    method: "DELETE",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ usecase: usecase }),
+                });
+                window.location.reload();
+            } catch (error) {
+                console.error("Error deleting instruction:", error);
+                alert(error?.message || "Error deleting instruction");
+            }
         }
-    }
 
     async function createInstruction(instructionLine1, useCaseName) {
         try {
