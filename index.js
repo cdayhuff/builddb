@@ -38,10 +38,9 @@ app.post('/chatadmin', async (req, res) => {
             throw new Error('Instruction and use case name are required.');
         }
         const payloadValues = {
-            INSTRUCTIONLINE1: (typeof payload.instruction !== 'undefined' && payload.instruction !== null) ? payload.instruction.trim() : "",
-            USECASENAME: (typeof payload.usecase !== 'undefined' && payload.usecase !== null) ? payload.usecase.trim() : "",
-        };
-        
+            INSTRUCTIONLINE1: payload.instruction?.trim() || "",
+            USECASENAME: payload.usecase?.trim() || "",
+        }
         await conn.query(`INSERT INTO CHATADMIN1 (INSTRUCTIONLINE1, USECASENAME) VALUES ('${payloadValues.INSTRUCTIONLINE1}', '${payloadValues.USECASENAME}')`);
         res.status(201).json({ message: 'Chat admin data created.' });
     } catch (err) {
