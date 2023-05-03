@@ -1,4 +1,4 @@
-FROM node:14.15.1-alpine
+FROM icr.io/codeengine/node:12-alpine
 RUN npm install
 COPY index.js .
 EXPOSE 8080
