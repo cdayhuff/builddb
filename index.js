@@ -70,6 +70,26 @@ app.put('/chatadmin', async (req, res) => {
     }
 });
 
-app.listen(8080, () => {
+
+app.delete('/chatadmin', async (req, res) => {
+    try {
+        const conn = await connectDb();
+        const payload = req.body;
+        if(!payload.usecase) {
+            throw new Error('Use case name is required.');
+        }
+        const payloadValues = {
+            USECASENAME: payload.usecase?.trim() || "",
+        }
+        await conn.query(`DELETE FROM CHATADMIN1 WHERE USECASENAME = '${payloadValues.USECASENAME}'`);
+        res.status(201).json({ message: 'Chat admin data deleted.' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'An error occurred while retrieving deleting data.' });
+    }
+});
+
+
+app.listen(3000, () => {
     console.log('Server listening on port 3000.');
 });
