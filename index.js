@@ -8,6 +8,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+
+//static files
+app.use(express.static('public'));
+
+
 app.set('view engine', 'ejs');
 
 
@@ -34,6 +39,13 @@ app.post('/chatadmin', async (req, res) => {
     try {
         const conn = await connectDb();
         const payload = req.body;
+        //check use case exists
+        const useCaseExists = await conn.query(`SELECT * FROM CHATADMIN1 WHERE USECASENAME = '${payload.usecase}'`);
+        if(useCaseExists.length > 0) {
+            throw new Error('Use case already exists.');
+        }
+        
+        
         if(!payload.instruction || !payload.usecase) {
             throw new Error('Instruction and use case name are required.');
         }
