@@ -1,3 +1,6 @@
+const dotenv = require('dotenv');
+dotenv.config();
+const calls = require('./utils/calls');
 const express = require('express');
 const connectDb = require('./db');
 const cors = require('cors');
@@ -22,10 +25,17 @@ app.get('/', async (req, res) => {
     try {
         const conn = await connectDb();
         const chatadmin1Data = await conn.query('SELECT * FROM CHATADMIN1');
-        console.log(chatadmin1Data);
+        const callStats = await conn.query('SELECT * FROM CALLSTATS');
+        const monthlyBill = calls.calculateBilling(callStats);
+        const monthlyCalls = calls.calculateMonthlyCallsCount(callStats);
+        const weeklyCalls = calls.calculateWeeklyCallsCount(callStats);
+        console.log({monthlyBill, monthlyCalls, weeklyCalls});
         res.render('get', {
             chatadmin1: chatadmin1Data,
             instructionLine1: '',
+            monthlyBill,
+            monthlyCalls,
+            weeklyCalls,
             useCaseName: '',
             editMode: false
         });
