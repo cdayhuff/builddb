@@ -29,7 +29,6 @@ app.get('/', async (req, res) => {
         const monthlyBill = calls.calculateBilling(callStats);
         const monthlyCalls = calls.calculateMonthlyCallsCount(callStats);
         const weeklyCalls = calls.calculateWeeklyCallsCount(callStats);
-        console.log({monthlyBill, monthlyCalls, weeklyCalls});
         res.render('get', {
             chatadmin1: chatadmin1Data,
             instructionLine1: '',
@@ -75,7 +74,6 @@ app.put('/chatadmin', async (req, res) => {
     try {
         const conn = await connectDb();
         const payload = req.body;
-        console.log(payload);
         if(!payload.instruction || !payload.usecase || !payload.id ) {
             throw new Error('Instruction and use case name are required.');
         }
