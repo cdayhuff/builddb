@@ -11,11 +11,11 @@ const dbCredentials = {
 }
 const connectionString = `DATABASE=${dbCredentials.database};` +
     `HOSTNAME=${dbCredentials.hostname};` +
-    `PORT=${dbCredentials.port};` +
-    `PROTOCOL=${dbCredentials.protocol};` +
+    'PORT=30699;' +
+    'PROTOCOL=TCPIP;' +
     `UID=${dbCredentials.uid};` +
     `PWD=${dbCredentials.pwd};` +
-    `SECURITY=${dbCredentials.security};`;
+    'SECURITY=SSL;';
 
 let dbConn = null;
 
