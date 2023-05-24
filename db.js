@@ -13,8 +13,8 @@ const connectionString = `DATABASE=${dbCredentials.database};` +
     `HOSTNAME=${dbCredentials.hostname};` +
     'PORT=30699;' +
     'PROTOCOL=TCPIP;' +
-    `UID=${dbCredentials.uid};` +
-    `PWD=${dbCredentials.pwd};` +
+    'UID=yhj69774;' +
+    'PWD=ZmevhWI8wQH4q1tQ;' +
     'SECURITY=SSL;';
     console.log(connectionString);
 let dbConn = null;
