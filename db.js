@@ -16,7 +16,7 @@ const connectionString = `DATABASE=${dbCredentials.database};` +
     `UID=${dbCredentials.uid};` +
     `PWD=${dbCredentials.pwd};` +
     'SECURITY=SSL;';
-
+    console.log(connectionString);
 let dbConn = null;
 
 async function connectDb() {
