@@ -103,17 +103,19 @@
             min-width: 768px;
 
         }
-        .img-container{
+
+        .img-container {
             width: 100%;
             height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
         }
-        .img-container img{
+
+        .img-container img {
             width: 100%;
             height: 100%;
-          
+
         }
 
         @media (max-width: 991.98px) {
@@ -168,6 +170,14 @@
                 border-radius: 25px;
 
             }
+
+            .card.custom-card {
+                background-color: #2A57AF;
+            }
+
+            .card.custom-card .card-body {
+                text-align: center;
+            }
         }
     </style>
 </head>
@@ -175,7 +185,7 @@
 <body>
 
     <div class="topbar">
-        <h1>GuidedAI</h1>
+        <h1>GPTNexus</h1>
     </div>
 
     <div class="sidebar">
@@ -193,33 +203,38 @@
     <div class=" main-container">
         <div class="container-fluid">
             <div class="row mt-0 mt-lg-5">
-                
-                <div class="col-md-4 mt-4 ">
-                    <div class="card text-white bg-primary mb-3">
-                        <div class="card-body">
+
+
+                <div class="col-md-4 mt-4">
+                    <div class="card text-white mb-3" style="background-color: #2A57AF;">
+                        <div class="card-body" style="text-align: center;">
                             <h5 class="card-title">TOTAL THIS BILLING</h5>
-                            <p class="card-text display-4" id="totalBilling"> <%= monthlyBill %> </p>
+                            <p class="card-text" id="totalBilling"> <%= monthlyBill %> </p>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-md-4 mt-4">
-                    <div class="card text-white bg-success mb-3">
-                        <div class="card-body">
-                            <h2 class="card-title">CALLS LAST 7 DAYS</h2>
-                            <p class="card-text display-4" id="callsThisBilling"> <%= weeklyCalls %> </p>
+                    <div class="card text-white mb-3" style="background-color: #2A57AF;">
+                        <div class="card-body"  style="text-align: center;">
+                            <h5 class="card-title">CALLS LAST 7 DAYS</h5>
+                            <p class="card-text" id="callsThisBilling">
+                                <%= weeklyCalls %>
+                            </p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4 mt-4">
-                    <div class="card text-white bg-info mb-3">
-                        <div class="card-body">
-                            <h2 class="card-title">CALLS THIS BILLING</h2>
-                            <p class="card-text display-4" id="callsLast7Days">  <%= monthlyCalls %> </p>
+                    <div class="card text-white mb-3" style="background-color: #2A57AF;">
+                        <div class="card-body"  style="text-align: center;">
+                            <h5 class="card-title">CALLS THIS BILLING</h5>
+                            <p class="card-text" id="callsLast7Days">
+                                <%= monthlyCalls %>
+                            </p>
                         </div>
                     </div>
                 </div>
-             
+
                 <div class="col-12 mt-4">
                     <h5>QUALIFIER DEFINITIONS</h5>
                 </div>
