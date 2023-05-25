@@ -9,13 +9,13 @@ const dbCredentials = {
     security: process.env.SECURITY
     
 }
-const connectionString = 'DATABASE=bludb;' +
-    'HOSTNAME=19af6446-6171-4641-8aba-9dcff8e1b6ff.c1ogj3sd0tgtu0lqde00.databases.appdomain.cloud;' +
-    'PORT=30699;' +
-    'PROTOCOL=TCPIP;' +
-    'UID=yhj69774;' +
-    'PWD=ZmevhWI8wQH4q1tQ;' +
-    'SECURITY=SSL;';
+const connectionString = `DATABASE=${dbCredentials.database};` +
+    `HOSTNAME=${dbCredentials.hostname};` +
+    `PORT=${dbCredentials.port};` +
+    `PROTOCOL=${dbCredentials.protocol};` +
+    `UID=${dbCredentials.uid};` +
+    `PWD=${dbCredentials.pwd};` +
+    `SECURITY=${dbCredentials.security};`;
 
 let dbConn = null;
 
