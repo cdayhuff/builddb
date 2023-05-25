@@ -26,7 +26,8 @@ app.get('/', async (req, res) => {
         const conn = await connectDb();
         const chatadmin1Data = await conn.query('SELECT * FROM CHATADMIN1');
         const callStats = await conn.query('SELECT * FROM CALLSTATS');
-        const monthlyBill = calls.calculateBilling(callStats);
+        const monthlyBill = await conn.query('SELECT AVG(timetoprocess) AS average_time FROM callstats');
+//        const monthlyBill = calls.calculateBilling(callStats);
         const monthlyCalls = calls.calculateMonthlyCallsCount(callStats);
         const weeklyCalls = calls.calculateWeeklyCallsCount(callStats);
         res.render('get', {
