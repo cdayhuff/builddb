@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GuidedAI</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         body {
             background-color: #f5f5f5;
@@ -26,7 +29,7 @@
             justify-content: center;
             align-items: center;
             padding: 10px;
-            color: #fff
+            /* color: #fff */
         }
 
         .admin-profile p {
@@ -153,6 +156,7 @@
                 text-align: center;
                 padding: 10px;
                 padding-bottom: 33px;
+                color: #fff;
 
             }
 
@@ -178,15 +182,67 @@
             .card.custom-card .card-body {
                 text-align: center;
             }
+
+            .intro-title {
+                padding: 2%;
+                text-align: center;
+                margin-top: 5%;
+            }
+
+            .user-text {
+                text-decoration: underline;
+            }
+
+            .sidebar {
+                padding-top: 0%;
+            }
+
+            .divider {
+                display: none;
+            }
+
+            .guided-logo {
+                height: 65px;
+                width: 100px;
+            }
         }
     </style>
 </head>
 
 <body>
+    <div class="modal fade" tabindex="-1" role="dialog" id="qualifierModal">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">NEW QUALIFIER</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="instructionForm" action="/chatadmin1" method="POST" class="mb-4">
+                        <div class="form-group">
+                            <label for="instruction">Qualifier Text:</label>
+                            <input type="text" class="form-control" name="instruction" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="usecase">Qualifier Name:</label>
+                            <input type="text" class="form-control" name="usecase" required>
+                        </div>
+                        <input type="hidden" name="id">
+                        <button id="updateButton" type="submit" class="btn btn-warning d-none">Update</button>
+                        <button id="createButton" type="submit" class="btn btn-success">Create</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="sidebar">
-        <img src="/guidedai.jpg" alt="GuidedAI Logo" style="max-width: 100%; max-height: 100%;">
-        <br>
-        <br>
+        <div class="container d-flex justify-content-center align-items-center w-100 bg-white p-2 logo-container">
+            <img class="guided-logo" src="/guidedai.jpg" alt="GuidedAI Logo"
+                style="max-width: 150px;; max-height: 150px;">
+        </div>
+        <hr class="divider">
         <div class="admin-profile">
             <img src="https://www.pngmart.com/files/21/Admin-Profile-PNG-Clipart.png" alt="Admin Profile">
             <!-- This img tag contains the admin profile image -->
@@ -195,47 +251,70 @@
             <button>Update Profile</button>
         </div>
     </div>
-    <div class=" main-container">
+    <div class="main-container">
         <div class="container-fluid">
             <div class="row mt-0 mt-lg-5">
+                <div class="col-md-12 intro-title">
+                    <h4 class="user-text">Welcome to GuidedAI dashboard</h4>
+                </div>
                 <div class="col-md-4 mt-4">
-                    <div class="card text-white mb-3" style="background-color: #2A57AF;">
-                        <div class="card-body" style="text-align: center;">
-                            <h5 class="card-title">TOTAL THIS BILLING</h5>
-                            <p class="card-text" id="totalBilling"> <%= monthlyBill %> </p>
+                    <div class="card text-white mb-3 bg-white custom-shadow text-dark">
+                        <div class="card-body d-flex flex-row align-items-center text-left" style="text-align: center;">
+                            <div class="border-right mr-1">
+                                <img width="100" height="100" src="/bill.png" class="img-fluid" alt="bill" />
+                            </div>
+                            <div class="ml-2" style="line-height: 2%;">
+                                <p class="card-heading h6 text-black-50">AVG TIME TO PROCESS</p>
+                                <h4 class="card-text" id="totalBilling">
+                                    <%= monthlyBill %>
+                                </h4>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-md-4 mt-4">
-                    <div class="card text-white mb-3" style="background-color: #2A57AF;">
-                        <div class="card-body"  style="text-align: center;">
-                            <h5 class="card-title">CALLS LAST 7 DAYS</h5>
-                            <p class="card-text" id="callsThisBilling">
-                                <%= weeklyCalls %>
-                            </p>
+                    <div class="card text-white mb-3  bg-white custom-shadow text-dark">
+                        <div class="card-body d-flex flex-row align-items-center text-left" style="text-align: center;">
+                            <div class="border-right mr-1">
+                                <img width="100" height="100" src="/call.png" class="img-fluid" alt="call" />
+                            </div>
+                            <div class="ml-2" style="line-height: 2%;">
+                                <p class="card-heading h6 text-black-50">REMAINING CREDITS</p>
+                                <h4 class="card-text" id="totalBilling">
+                                    <%= weeklyCalls %>
+                                </h4>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4 mt-4">
-                    <div class="card text-white mb-3" style="background-color: #2A57AF;">
-                        <div class="card-body"  style="text-align: center;">
-                            <h5 class="card-title">CALLS THIS BILLING</h5>
-                            <p class="card-text" id="callsLast7Days">
-                                <%= monthlyCalls %>
-                            </p>
+                    <div class="card text-white mb-3  bg-white custom-shadow text-dark">
+                        <div class="card-body d-flex flex-row align-items-center text-left" style="text-align: center;">
+                            <div class="border-right mr-1">
+                                <img width="100" height="100" src="calendar.png" class="img-fluid" alt="calendar" />
+                            </div>
+                            <div class="ml-2" style="line-height: 2%;">
+                                <p class="card-heading h6 text-black-50">CALLS THIS BILLING</p>
+                                <h4 class="card-text" id="totalBilling">
+                                    <%= monthlyCalls %>
+                                </h4>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="col-12 mt-4">
-                    <h5>QUALIFIER DEFINITIONS</h5>
                 </div>
                 <div class="col-12">
-                    <div class="table-container">
+                    <div class="table-container shadow">
+                        <div class="d-flex flex-row justify-content-between align-items-center mb-3">
+                            <h4>Qualifier Definations</h4>
+                            <button type="button" class="btn btn-success" data-toggle="modal"
+                                data-target="#qualifierModal">Create
+                                Qualifier <i class="fa fa-plus
+                                "></i></button>
+                        </div>
                         <div class="table-responsive">
                             <table class="table table-striped" style="min-width: 576px;">
-                                <thead>
+                                <thead class="thead-dark">
                                     <tr>
                                         <th>Name</th>
                                         <th>Text</th>
@@ -252,9 +331,10 @@
                                                 <%= chatadmin1[i].INSTRUCTIONLINE1 %>
                                             </td>
                                             <td>
+
                                                 <a href="javascript:void(0);"
                                                     onclick="deleteInstruction('<%= chatadmin1[i].USECASENAME %>')"
-                                                    class="btn btn-primary btn-xs">Delete</a>
+                                                    class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>
                                         <% } %>
@@ -262,20 +342,7 @@
                             </table>
                         </div>
 
-                        <h5 class="my-4">NEW QUALIFIER</h5>
-                        <form id="instructionForm" action="/chatadmin1" method="POST" class="mb-4">
-                            <div class="form-group">
-                                <label for="instruction">Qualifier Text:</label>
-                                <input type="text" class="form-control" name="instruction" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="usecase">Qualifier Name:</label>
-                                <input type="text" class="form-control" name="usecase" required>
-                            </div>
-                            <input type="hidden" name="id">
-                            <button id="updateButton" type="submit" class="btn btn-warning d-none">Update</button>
-                            <button id="createButton" type="submit" class="btn btn-success">Create</button>
-                        </form>
+
 
 
                     </div>
@@ -289,10 +356,18 @@
 
     </div>
 
-
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
     <script>
         const form = document.getElementById("instructionForm");
-        form.addEventListener("submit", handleSubmit);
+        form.addEventListener("submit",handleSubmit);
 
         async function handleSubmit(event) {
             event.preventDefault();
@@ -302,61 +377,61 @@
 
             if (createButton.classList.contains("d-none")) {
                 const id = document.querySelector("input[name='id']").value;
-                console.log({ id, instructionLine1, useCaseName });
-                await updateInstruction(id, instructionLine1, useCaseName);
+                console.log({ id,instructionLine1,useCaseName });
+                await updateInstruction(id,instructionLine1,useCaseName);
                 //reload
 
             } else {
-                await createInstruction(instructionLine1, useCaseName);
+                await createInstruction(instructionLine1,useCaseName);
                 //reload
                 window.location.reload();
             }
         }
         async function deleteInstruction(usecase) {
             try {
-                const response = await fetch("/chatadmin", {
+                const response = await fetch("/chatadmin",{
                     method: "DELETE",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ usecase: usecase }),
                 });
                 window.location.reload();
             } catch (error) {
-                console.error("Error deleting instruction:", error);
+                console.error("Error deleting instruction:",error);
                 alert(error?.message || "Error deleting instruction");
             }
         }
 
-        async function createInstruction(instructionLine1, useCaseName) {
+        async function createInstruction(instructionLine1,useCaseName) {
             try {
-                const response = await fetch("/chatadmin", {
+                const response = await fetch("/chatadmin",{
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ instruction: instructionLine1, usecase: useCaseName }),
+                    body: JSON.stringify({ instruction: instructionLine1,usecase: useCaseName }),
                 });
                 const data = await response.json();
-                console.log("Instruction created:", data);
+                console.log("Instruction created:",data);
             } catch (error) {
-                console.error("Error creating instruction:", error);
+                console.error("Error creating instruction:",error);
                 alert(error?.message || "Error creating instruction");
             }
         }
 
-        async function updateInstruction(id, instructionLine1, useCaseName) {
+        async function updateInstruction(id,instructionLine1,useCaseName) {
             try {
-                const response = await fetch("/chatadmin", {
+                const response = await fetch("/chatadmin",{
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ id: id, instruction: instructionLine1, usecase: useCaseName }),
+                    body: JSON.stringify({ id: id,instruction: instructionLine1,usecase: useCaseName }),
                 });
                 const data = await response.json();
-                console.log("Instruction updated:", data);
+                console.log("Instruction updated:",data);
             } catch (error) {
-                console.error("Error updating instruction:", error);
+                console.error("Error updating instruction:",error);
                 alert(error?.message || "Error updating instruction");
             }
         }
 
-        function switchToEditMode(id, instructionLine1, useCaseName) {
+        function switchToEditMode(id,instructionLine1,useCaseName) {
             const createButton = document.getElementById("createButton");
             const updateButton = document.getElementById("updateButton");
 
