@@ -1,25 +1,32 @@
 // Calculate the number of calls since the first day of the current month
 function calculateMonthlyCallsCount(mCalls) {
-	let firstCallDate = mCalls[0].ROW_COUNT;
-	return firstCallDate;
+  let firstCallDate = mCalls[0].ROW_COUNT;
+  return firstCallDate;
 }
 
 // Calculate the total billing for this month
 function calculateBilling(avgForCalls) {
-	let averageTime = avgForCalls[0].AVERAGE_TIME.toFixed(1);
-    const monthlyBill = averageTime;
-	return monthlyBill;
+  let averageTime = avgForCalls[0].AVERAGE_TIME.toFixed(1);
+  const monthlyBill = averageTime;
+  return monthlyBill;
 }
 
 // Calculate the total number of calls in the last 7 days
 function calculateWeeklyCallsCount(calls) {
-	let weekAgo = calls[0].DIFFERENCE;
-	console.log(calls[0]);
-	return weekAgo;
+  let weekAgo = calls[0].ROW_COUNT;
+  return weekAgo;
 }
 
+// Middleware to ensure authentication
+function ensureAuthenticated(req, res, next) {
+  if (req.session.STATE_PARAMETER) {
+    return next();
+  }
+  res.redirect("/");
+}
 module.exports = {
-	calculateMonthlyCallsCount,
-	calculateBilling,
-	calculateWeeklyCallsCount
+  calculateMonthlyCallsCount,
+  calculateBilling,
+  calculateWeeklyCallsCount,
+  ensureAuthenticated,
 };

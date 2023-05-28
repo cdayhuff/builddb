@@ -249,13 +249,19 @@
             <h5>Corey Dayhuff</h5>
             <p>President</p>
             <button>Update Profile</button>
+            <form action="/logout" method="get" class="w-50">
+                <div class="pb-3 text-center">
+                    <button type="submit" class="btn btn-primary w-100 text-white"
+                        style="background-color: #30CAFE;border: none;">Logout</button>
+                </div>
+            </form>
         </div>
     </div>
     <div class="main-container">
         <div class="container-fluid">
             <div class="row mt-0 mt-lg-5">
                 <div class="col-md-12 intro-title">
-                    <h4 class="user-text">Welcome to GuidedAI dashboard</h4>
+                    <h4 class="user-text">Greetings, Welcome to Dashboard!</h4>
                 </div>
                 <div class="col-md-4 mt-4">
                     <div class="card text-white mb-3 bg-white custom-shadow text-dark">
@@ -264,7 +270,7 @@
                                 <img width="100" height="100" src="/bill.png" class="img-fluid" alt="bill" />
                             </div>
                             <div class="ml-2" style="line-height: 2%;">
-                                <p class="card-heading h6 text-black-50">AVG TIME TO PROCESS</p>
+                                <p class="card-heading h6 text-black-50">TOTAL THIS BILLING</p>
                                 <h4 class="card-text" id="totalBilling">
                                     <%= monthlyBill %>
                                 </h4>
@@ -280,7 +286,7 @@
                                 <img width="100" height="100" src="/call.png" class="img-fluid" alt="call" />
                             </div>
                             <div class="ml-2" style="line-height: 2%;">
-                                <p class="card-heading h6 text-black-50">REMAINING CREDITS</p>
+                                <p class="card-heading h6 text-black-50">CALLS LAST 7 DAYS</p>
                                 <h4 class="card-text" id="totalBilling">
                                     <%= weeklyCalls %>
                                 </h4>
