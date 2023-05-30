@@ -246,10 +246,12 @@
         <div class="admin-profile">
             <img src="https://www.pngmart.com/files/21/Admin-Profile-PNG-Clipart.png" alt="Admin Profile">
             <!-- This img tag contains the admin profile image -->
-            <h5>Corey Dayhuff</h5>
+            <h5>
+                <%= name %>
+            </h5>
             <p>President</p>
             <button>Update Profile</button>
-            <form action="/logout" method="get" class="w-50">
+            <form action="/appid/logout" method="get" class="w-50">
                 <div class="pb-3 text-center">
                     <button type="submit" class="btn btn-primary w-100 text-white"
                         style="background-color: #30CAFE;border: none;">Logout</button>

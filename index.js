@@ -11,7 +11,6 @@ const { ensureAuthenticated } = require("./utils/calls");
 
 const app = express();
 
-app.use(passport.initialize());
 app.use(cors());
 app.use(express.json());
 
@@ -23,8 +22,9 @@ app.set("view engine", "ejs");
 app.use(
   session({
     secret: "123456",
-    resave: true,
-    saveUninitialized: true,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: 1500000, secure: false },
   })
 );
 //Init Passport and authentication
@@ -37,7 +37,7 @@ passport.use(
     secret: "M2ZmODcyYTktMGFiNC00NTBiLWI5YzItMTU0MmE5YjYwNGQx",
     oauthServerUrl:
       "https://us-south.appid.cloud.ibm.com/oauth/v4/c1e39e13-59b4-49fe-8f6c-f07ee1ddc09f",
-    redirectUri: "https://guidedai.11xsopa418xy.us-south.codeengine.appdomain.cloud/",
+    redirectUri: "https://guidedai.11xsopa418xy.us-south.codeengine.appdomain.cloud/appid/callback",
   })
 );
 passport.serializeUser(function (user, cb) {
@@ -49,69 +49,67 @@ passport.deserializeUser(function (obj, cb) {
 });
 
 app.get("/", async (req, res) => {
-  res.render("login");
-});
-app.post("/login", (req, res, next) => {
-  passport.authenticate(WebAppStrategy.STRATEGY_NAME, (err, user) => {
-    if (err) {
-      return next(err);
+  if (req.user) {
+    try {
+      const conn = await connectDb();
+      const chatadmin1Data = await conn.query("SELECT * FROM CHATADMIN1");
+      const callStats = await conn.query(
+        "SELECT COUNT(*) AS row_count FROM callstats WHERE calltimestamp >= CURRENT DATE - 7 DAYS"
+      );
+      const mCalls = await conn.query(
+        "SELECT COUNT(*) AS row_count FROM callstats WHERE DATE_PART('year', calltimestamp) = DATE_PART('year', CURRENT_DATE)   AND DATE_PART('month', calltimestamp) = DATE_PART('month', CURRENT_DATE)"
+      );
+      const avgForCalls = await conn.query(
+        "SELECT AVG(timetoprocess) AS average_time FROM callstats"
+      );
+      const monthlyBill = calls.calculateBilling(avgForCalls);
+      const monthlyCalls = calls.calculateMonthlyCallsCount(mCalls);
+      const weeklyCalls = calls.calculateWeeklyCallsCount(callStats);
+      res.render("get", {
+        chatadmin1: chatadmin1Data,
+        instructionLine1: "",
+        monthlyBill,
+        monthlyCalls,
+        weeklyCalls,
+        useCaseName: "",
+        editMode: false,
+        name: req.user.name,
+      });
+    } catch (err) {
+      console.error(err);
+      res
+        .status(500)
+        .send("An error occurred while retrieving CHATADMIN1 data.");
     }
-    if (!user) {
-      return res.redirect("/"); // Redirect to the login page
-    }
-    req.logIn(user, (err) => {
-      if (err) {
-        return next(err);
-      }
-      return res.redirect("/dashboard");
-    });
-  })(req, res, next);
+  } else {
+    res.render("login");
+  }
+  console.log(req.user);
 });
+
 app.get(
-  "/ibm/bluemix/appid/callback",
-  passport.authenticate(WebAppStrategy.STRATEGY_NAME)
+  "/appid/login",
+  passport.authenticate(WebAppStrategy.STRATEGY_NAME, {
+    successRedirect: "/",
+    forceLogin: true,
+  })
 );
 
-app.get("/logout", function (req, res) {
-  req.session.destroy(function (err) {
+app.get(
+  "/appid/callback",
+  passport.authenticate(WebAppStrategy.STRATEGY_NAME, {
+    successRedirect: "/",
+  })
+);
+
+app.get("/appid/logout", async (req, res) => {
+  req.logout((err) => {
     if (err) {
-      console.error(err);
-      res.status(500).send("An error occurred during logout.");
-    } else {
-      res.redirect("/");
+      return err;
     }
+    // WebAppStrategy.logout(req);
+    res.redirect("/");
   });
-});
-app.get("/dashboard", ensureAuthenticated, async (req, res) => {
-  try {
-    console.log(req);
-    const conn = await connectDb();
-    const chatadmin1Data = await conn.query("SELECT * FROM CHATADMIN1");
-    const callStats = await conn.query(
-      "SELECT COUNT(*) AS row_count FROM callstats WHERE calltimestamp >= CURRENT DATE - 7 DAYS"
-    );
-    const mCalls = await conn.query(
-      "SELECT COUNT(*) AS row_count FROM callstats WHERE DATE_PART('year', calltimestamp) = DATE_PART('year', CURRENT_DATE)   AND DATE_PART('month', calltimestamp) = DATE_PART('month', CURRENT_DATE)"
-    );
-    const avgForCalls = await conn.query(
-      "SELECT AVG(timetoprocess) AS average_time FROM callstats"
-    );
-    const monthlyBill = calls.calculateBilling(avgForCalls);
-    const monthlyCalls = calls.calculateMonthlyCallsCount(mCalls);
-    const weeklyCalls = calls.calculateWeeklyCallsCount(callStats);
-    res.render("get", {
-      chatadmin1: chatadmin1Data,
-      instructionLine1: "",
-      monthlyBill,
-      monthlyCalls,
-      weeklyCalls,
-      useCaseName: "",
-      editMode: false,
-    });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("An error occurred while retrieving CHATADMIN1 data.");
-  }
 });
 
 app.post("/chatadmin", async (req, res) => {
