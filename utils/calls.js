@@ -13,7 +13,7 @@ function calculateBilling(avgForCalls) {
 
 // Calculate the total number of calls in the last 7 days
 function calculateWeeklyCallsCount(calls) {
-  let weekAgo = calls[0].ROW_COUNT;
+  let weekAgo = calls[0].RESULT;
   return weekAgo;
 }
 

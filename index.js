@@ -54,8 +54,7 @@ app.get("/", async (req, res) => {
       const conn = await connectDb();
       const chatadmin1Data = await conn.query("SELECT * FROM CHATADMIN1");
       const callStats = await conn.query(
-        "SELECT COUNT(*) AS row_count FROM callstats WHERE calltimestamp >= CURRENT DATE - 7 DAYS"
-      );
+        "SELECT (SELECT SUM(creditnumber) FROM credits) - (SELECT COUNT(*) FROM callstats) AS result FROM SYSIBM.SYSDUMMY1");
       const mCalls = await conn.query(
         "SELECT COUNT(*) AS row_count FROM callstats WHERE DATE_PART('year', calltimestamp) = DATE_PART('year', CURRENT_DATE)   AND DATE_PART('month', calltimestamp) = DATE_PART('month', CURRENT_DATE)"
       );
