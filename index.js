@@ -37,7 +37,7 @@ passport.use(
     secret: "M2ZmODcyYTktMGFiNC00NTBiLWI5YzItMTU0MmE5YjYwNGQx",
     oauthServerUrl:
       "https://us-south.appid.cloud.ibm.com/oauth/v4/c1e39e13-59b4-49fe-8f6c-f07ee1ddc09f",
-    redirectUri: "https://guidedai.11xsopa418xy.us-south.codeengine.appdomain.cloud/dashboard",
+    redirectUri: "http://localhost:3000/dashboard",
   })
 );
 passport.serializeUser(function (user, cb) {
@@ -191,6 +191,6 @@ app.delete("/chatadmin", async (req, res) => {
   }
 });
 
-app.listen(8080, () => {
-  console.log("Server listening on port 8080.");
+app.listen(3000, () => {
+  console.log("Server listening on port 3000.");
 });
