@@ -30,14 +30,26 @@ app.use(
 //Init Passport and authentication
 app.use(passport.initialize());
 app.use(passport.session());
+//corey 
+//passport.use(
+//  new WebAppStrategy({
+//    tenantId: "c1e39e13-59b4-49fe-8f6c-f07ee1ddc09f",
+//    clientId: "2aa668f6-cadb-49ec-b99b-58a501a7ce41",
+//    secret: "M2ZmODcyYTktMGFiNC00NTBiLWI5YzItMTU0MmE5YjYwNGQx",
+//    oauthServerUrl:
+//      "https://us-south.appid.cloud.ibm.com/oauth/v4/c1e39e13-59b4-49fe-8f6c-f07ee1ddc09f",
+//    redirectUri: "https://guidedai.11xsopa418xy.us-south.codeengine.appdomain.cloud/appid/callback",
+//  })
+//);
+
 passport.use(
   new WebAppStrategy({
-    tenantId: "c1e39e13-59b4-49fe-8f6c-f07ee1ddc09f",
-    clientId: "2aa668f6-cadb-49ec-b99b-58a501a7ce41",
-    secret: "M2ZmODcyYTktMGFiNC00NTBiLWI5YzItMTU0MmE5YjYwNGQx",
+    tenantId: "cf452da3-7973-423a-9f14-9c0c94a1e3de",
+    clientId: "375bdc25-9a7c-4ac4-bbe7-d829bba47568",
+    secret: "NmQ4YTE2ODEtMWMxOC00YWZmLWE4ZGYtYTQ4NTZiZTRjYTI0",
     oauthServerUrl:
-      "https://us-south.appid.cloud.ibm.com/oauth/v4/c1e39e13-59b4-49fe-8f6c-f07ee1ddc09f",
-    redirectUri: "https://guidedai.11xsopa418xy.us-south.codeengine.appdomain.cloud/appid/callback",
+      "https://us-south.appid.cloud.ibm.com/oauth/v4/cf452da3-7973-423a-9f14-9c0c94a1e3de",
+    redirectUri: "https://guidedai.134rqhtnng30.us-east.codeengine.appdomain.cloud/appid/callback",
   })
 );
 passport.serializeUser(function (user, cb) {
