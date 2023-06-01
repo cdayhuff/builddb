@@ -31,27 +31,29 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 //corey 
+passport.use(
+  new WebAppStrategy({
+    tenantId: "c1e39e13-59b4-49fe-8f6c-f07ee1ddc09f",
+    clientId: "2aa668f6-cadb-49ec-b99b-58a501a7ce41",
+    secret: "M2ZmODcyYTktMGFiNC00NTBiLWI5YzItMTU0MmE5YjYwNGQx",
+    oauthServerUrl:
+      "https://us-south.appid.cloud.ibm.com/oauth/v4/c1e39e13-59b4-49fe-8f6c-f07ee1ddc09f",
+    redirectUri: "https://guidedai.11xsopa418xy.us-south.codeengine.appdomain.cloud/appid/callback",
+  })
+);
+
+//vince
 //passport.use(
 //  new WebAppStrategy({
-//    tenantId: "c1e39e13-59b4-49fe-8f6c-f07ee1ddc09f",
-//    clientId: "2aa668f6-cadb-49ec-b99b-58a501a7ce41",
-//    secret: "M2ZmODcyYTktMGFiNC00NTBiLWI5YzItMTU0MmE5YjYwNGQx",
+//    tenantId: "452b532a-0c6c-4129-89b7-8d5c3c9b46a3",
+//    clientId: "3b79d673-48f3-4545-a231-1c7f034c6e0f",
+//    secret: "MDg2NDQ2Y2EtZTM3YS00YTc3LTliN2EtNzVhZWQ3MTE5ZTgz",
 //    oauthServerUrl:
-//      "https://us-south.appid.cloud.ibm.com/oauth/v4/c1e39e13-59b4-49fe-8f6c-f07ee1ddc09f",
-//    redirectUri: "https://guidedai.11xsopa418xy.us-south.codeengine.appdomain.cloud/appid/callback",
+//      "https://us-south.appid.cloud.ibm.com/oauth/v4/452b532a-0c6c-4129-89b7-8d5c3c9b46a3",
+//    redirectUri: "https://guidedai.1366xalnyntg.us-south.codeengine.appdomain.cloud/appid/callback",
 //  })
 //);
 
-passport.use(
-  new WebAppStrategy({
-    tenantId: "452b532a-0c6c-4129-89b7-8d5c3c9b46a3",
-    clientId: "3b79d673-48f3-4545-a231-1c7f034c6e0f",
-    secret: "MDg2NDQ2Y2EtZTM3YS00YTc3LTliN2EtNzVhZWQ3MTE5ZTgz",
-    oauthServerUrl:
-      "https://us-south.appid.cloud.ibm.com/oauth/v4/452b532a-0c6c-4129-89b7-8d5c3c9b46a3",
-    redirectUri: "https://guidedai.1366xalnyntg.us-south.codeengine.appdomain.cloud/appid/callback",
-  })
-);
 passport.serializeUser(function (user, cb) {
   cb(null, user);
 });

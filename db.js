@@ -9,20 +9,23 @@ const dbCredentials = {
     security: process.env.SECURITY
     
 }
-//corey  'HOSTNAME=19af6446-6171-4641-8aba-9dcff8e1b6ff.c1ogj3sd0tgtu0lqde00.databases.appdomain.cloud;' +
-//'PORT=30699;' +
-//'PROTOCOL=TCPIP;' +
-//'UID=yhj69774;' +
-//'PWD=ZmevhWI8wQH4q1tQ;' +
-//'SECURITY=SSL;';
-
+//corey  
 const connectionString = 'DATABASE=bludb;' +
-    'HOSTNAME=9938aec0-8105-433e-8bf9-0fbb7e483086.c1ogj3sd0tgtu0lqde00.databases.appdomain.cloud;' +
-    'PORT=32459;' +
-    'PROTOCOL=TCPIP;' +
-    'UID=zct01201;' +
-    'PWD=0J0mEgEsBqnHilkg;' +
-    'SECURITY=SSL;';
+'HOSTNAME=19af6446-6171-4641-8aba-9dcff8e1b6ff.c1ogj3sd0tgtu0lqde00.databases.appdomain.cloud;' +
+'PORT=30699;' +
+'PROTOCOL=TCPIP;' +
+'UID=yhj69774;' +
+'PWD=ZmevhWI8wQH4q1tQ;' +
+'SECURITY=SSL;';
+
+//vince
+// const connectionString = 'DATABASE=bludb;' +
+//    'HOSTNAME=9938aec0-8105-433e-8bf9-0fbb7e483086.c1ogj3sd0tgtu0lqde00.databases.appdomain.cloud;' +
+//    'PORT=32459;' +
+//    'PROTOCOL=TCPIP;' +
+//    'UID=zct01201;' +
+//    'PWD=0J0mEgEsBqnHilkg;' +
+//    'SECURITY=SSL;';
 
 let dbConn = null;
 
