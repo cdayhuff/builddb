@@ -17,11 +17,11 @@ const dbCredentials = {
 //'SECURITY=SSL;';
 
 const connectionString = 'DATABASE=bludb;' +
-    'HOSTNAME=125f9f61-9715-46f9-9399-c8177b21803b.c1ogj3sd0tgtu0lqde00.databases.appdomain.cloud;' +
-    'PORT=30426;' +
+    'HOSTNAME=9938aec0-8105-433e-8bf9-0fbb7e483086.c1ogj3sd0tgtu0lqde00.databases.appdomain.cloud;' +
+    'PORT=32459;' +
     'PROTOCOL=TCPIP;' +
-    'UID=mqd26227;' +
-    'PWD=cOmxjmlDKJNxItn2;' +
+    'UID=zct01201;' +
+    'PWD=0J0mEgEsBqnHilkg;' +
     'SECURITY=SSL;';
 
 let dbConn = null;
