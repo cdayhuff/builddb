@@ -44,12 +44,12 @@ app.use(passport.session());
 
 passport.use(
   new WebAppStrategy({
-    tenantId: "cf452da3-7973-423a-9f14-9c0c94a1e3de",
-    clientId: "375bdc25-9a7c-4ac4-bbe7-d829bba47568",
-    secret: "NmQ4YTE2ODEtMWMxOC00YWZmLWE4ZGYtYTQ4NTZiZTRjYTI0",
+    tenantId: "452b532a-0c6c-4129-89b7-8d5c3c9b46a3",
+    clientId: "3b79d673-48f3-4545-a231-1c7f034c6e0f",
+    secret: "MDg2NDQ2Y2EtZTM3YS00YTc3LTliN2EtNzVhZWQ3MTE5ZTgz",
     oauthServerUrl:
-      "https://us-south.appid.cloud.ibm.com/oauth/v4/cf452da3-7973-423a-9f14-9c0c94a1e3de",
-    redirectUri: "https://guidedai.134rqhtnng30.us-east.codeengine.appdomain.cloud/appid/callback",
+      "https://us-south.appid.cloud.ibm.com/oauth/v4/452b532a-0c6c-4129-89b7-8d5c3c9b46a3",
+    redirectUri: "https://guidedai.1366xalnyntg.us-south.codeengine.appdomain.cloud/appid/callback",
   })
 );
 passport.serializeUser(function (user, cb) {
