@@ -50,7 +50,7 @@ passport.use(
     secret: "MZWI2YmFlMDktNmMxZS00OTRlLTkxOTQtNmZmNDU3OThlOWZm",
     oauthServerUrl:
       "https://us-south.appid.cloud.ibm.com/oauth/v4/eb6e4969-cce1-4f69-a003-fd3965fc4efd",
-    redirectUri: "https://guidedai.1366xalnyntg.us-south.codeengine.appdomain.cloud/appid/callback",
+    redirectUri: "https://guidedai1.1366xalnyntg.us-south.codeengine.appdomain.cloud/appid/callback",
   })
 );
 
